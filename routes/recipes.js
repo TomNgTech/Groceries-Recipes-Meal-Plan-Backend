@@ -34,7 +34,7 @@ const mockData = [
 ];
 
 
-router.get('/recipe', (req, res) => {
+router.get('/', (req, res) => {
     const recipesData = mockData.filter((recipe) => {
         if (recipe.id && recipe.dishName && recipe.ingredients && recipe.servingSize) {
             return recipe;
