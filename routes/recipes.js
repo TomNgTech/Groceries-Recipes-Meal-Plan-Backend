@@ -21,8 +21,9 @@ const mockData = [
             { name: 'butter', quantity: '50', measurementType: 'gram'}
         ],
         servingSize: 2
-    }
-    id: '3', 
+    },
+    {
+        id: '3', 
         dishName: 'Chicken and Potatoes',
         ingredients: [
             { name: 'chicken tighs', quantity: '4', measurementType: 'unit'},
@@ -41,7 +42,7 @@ router.get('/', (req, res) => {
         }
     });
 
-    if (filteredData.length === 0) {
+    if (recipesData.length === 0) {
         return res.status(404).json({
             message: 'No recipes found'
         });
