@@ -12,6 +12,7 @@ const recipeSchema = new dynamoose.Schema(
         }
     ],
     servingSize: { type: Number, required: true },
+    },
     {
         saveUnknown: true,
         timestamps: true,
