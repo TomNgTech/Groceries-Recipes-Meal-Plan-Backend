@@ -11,10 +11,6 @@ const ingredientSchema = new dynamoose.Schema(
       type: String,
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
     measurementType: {
       type: String,
       required: true,
