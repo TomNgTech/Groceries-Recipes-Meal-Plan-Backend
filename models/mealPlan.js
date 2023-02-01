@@ -15,7 +15,7 @@ const mealPlanSchema = new dynamoose.Schema(
             }]
         }
     }, {
-    "saveUnknown": true,
+    "saveUnknown": false,
     "timestamps": true
 });
 

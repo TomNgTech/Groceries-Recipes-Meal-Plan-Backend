@@ -17,7 +17,7 @@ const ingredientSchema = new dynamoose.Schema(
     },
   },
   {
-    saveUnknown: true,
+    saveUnknown: false,
     timestamps: true,
   }
 );
