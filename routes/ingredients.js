@@ -3,7 +3,7 @@ const Ingredient = require("./ingredientModel");
 const router = express.Router();
 
 //GET all ingredients
-router.get("/ingredients", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
       const ingredients = await Ingredient.scan().exec();
       if (!ingredients) {
@@ -16,7 +16,7 @@ router.get("/ingredients", async (req, res) => {
   });
   
   //GET a specific ingredient by id
-  router.get("/ingredients/:id", async (req, res) => {
+  router.get("/:id", async (req, res) => {
     try {
       const ingredient = await Ingredient.get(req.params.id);
       if (!ingredient) {
@@ -29,7 +29,7 @@ router.get("/ingredients", async (req, res) => {
   });
   
   //POST a new ingredient
-  router.post("/ingredients", async (req, res) => {
+  router.post("/", async (req, res) => {
     try {
       const ingredient = await Ingredient.create(req.body);
       res.status(200).json(ingredient);
@@ -39,7 +39,7 @@ router.get("/ingredients", async (req, res) => {
   });
   
   //PUT an existing ingredient
-  router.put("/ingredients/:id", async (req, res) => {
+  router.put("/:id", async (req, res) => {
     try {
       const ingredient = await Ingredient.update(req.params.id, req.body);
       if (!ingredient) {
@@ -52,7 +52,7 @@ router.get("/ingredients", async (req, res) => {
   });
   
   //DELETE an ingredient
-  router.delete("/ingredients/:id", async (req, res) => {
+  router.delete("/:id", async (req, res) => {
     try {
       const ingredient = await Ingredient.delete(req.params.id);
       if (!ingredient) {
