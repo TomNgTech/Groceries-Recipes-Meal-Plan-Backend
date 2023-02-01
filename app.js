@@ -19,6 +19,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var recipesRouter = require("./routes/recipes");
 var mealPlanRouter = require("./routes/mealPlan");
+var ingredientsRouter = require("./routes/ingredients");
 
 var app = express();
 
@@ -33,5 +34,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/recipes", recipesRouter);
 app.use("/mealPlan", mealPlanRouter);
+app.use("/ingredients", ingredientsRouter);
 
 module.exports = app;
