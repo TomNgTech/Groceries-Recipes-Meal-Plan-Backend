@@ -1,14 +1,12 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI
+name: Test Workflow (CI)
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    types: [opened, closed]
+    types: [opened]
 
 jobs:
   test:
@@ -29,25 +27,3 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-
-  deploy:
-    if: github.event.pull_request.merged
-    
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: SSH and deploy node app
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd ~/Groceries-Recipes-Meal-Plan-Backend/
-          git checkout main
-          git fetch --all
-          git reset --hard origin/main
-          git pull origin main
-          npm install --production
-          sudo pm2 restart node-app
