@@ -30,7 +30,7 @@ jobs:
     - run: npm test
 
   deploy:
-    needs: [test]
+    if: github.event.pull_request.merged == true
     
     runs-on: ubuntu-latest
 
@@ -44,9 +44,9 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd ~/Groceries-Recipes-Meal-Plan-Backend/
-          git checkout master
+          git checkout main
           git fetch --all
-          git reset --hard origin/master
-          git pull origin master
+          git reset --hard origin/main
+          git pull origin main
           npm install --production
           sudo pm2 restart node-app
