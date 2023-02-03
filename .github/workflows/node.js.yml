@@ -10,8 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,3 +28,25 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+
+  deploy:
+    if: github.event.pull_request.merged == true
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH and deploy node app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd ~/Groceries-Recipes-Meal-Plan-Backend/
+          git checkout main
+          git fetch --all
+          git reset --hard origin/main
+          git pull origin main
+          npm install --production
+          sudo pm2 restart node-app
