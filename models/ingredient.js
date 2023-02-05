@@ -1,25 +1,24 @@
-const dynamoose = require("dynamoose");
+const dynamoose = require('dynamoose')
 
 const ingredientSchema = new dynamoose.Schema(
   {
     id: {
       type: String,
-      required: true,
-      hashKey: true,
+      required: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     measurementType: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
     saveUnknown: false,
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = dynamoose.model("Ingredient", ingredientSchema);
+module.exports = dynamoose.model('Ingredient', ingredientSchema)

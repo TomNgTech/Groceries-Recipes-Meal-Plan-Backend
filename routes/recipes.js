@@ -1,67 +1,67 @@
-const express = require("express");
-const Recipe = require("../models/recipes");
-const router = express.Router();
+const express = require('express')
+const Recipe = require('../models/recipes')
+const router = express.Router()
 
-//GET all recipes
-router.get("/", async (req, res) => {
+// GET all recipes
+router.get('/', async (req, res) => {
   try {
-    const recipes = await Recipe.scan().exec();
+    const recipes = await Recipe.scan().exec()
     if (!recipes) {
-      return res.status(404).json({ error: "Recipes not found" });
+      return res.status(404).json({ error: 'Recipes not found' })
     }
-    res.status(200).json(recipes);
+    res.status(200).json(recipes)
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error })
   }
-});
+})
 
-//GET a specific recipe by id
-router.get("/:id", async (req, res) => {
+// GET a specific recipe by id
+router.get('/:id', async (req, res) => {
   try {
-    const recipe = await Recipe.get(req.params.id);
+    const recipe = await Recipe.get(req.params.id)
     if (!recipe) {
-      return res.status(404).json({ error: "Recipe not found" });
+      return res.status(404).json({ error: 'Recipe not found' })
     }
-    res.status(200).json(recipe);
+    res.status(200).json(recipe)
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error })
   }
-});
+})
 
-//POST a new recipe
-router.post("/", async (req, res) => {
+// POST a new recipe
+router.post('/', async (req, res) => {
   try {
-    const recipe = await Recipe.create(req.body);
-    res.status(200).json(recipe);
+    const recipe = await Recipe.create(req.body)
+    res.status(200).json(recipe)
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error })
   }
-});
+})
 
-//PUT an existing recipe
-router.put("/recipes/:id", async (req, res) => {
+// PUT an existing recipe
+router.put('/:id', async (req, res) => {
   try {
-    const recipe = await Recipe.update(req.params.id, req.body);
+    const recipe = await Recipe.update(req.params.id, req.body)
     if (!recipe) {
-      return res.status(404).json({ error: "Recipe not found" });
+      return res.status(404).json({ error: 'Recipe not found' })
     }
-    res.status(200).json(recipe);
+    res.status(200).json(recipe)
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error })
   }
-});
+})
 
-//DELETE a recipe
-router.delete("/recipes/:id", async (req, res) => {
+// DELETE a recipe
+router.delete('/:id', async (req, res) => {
   try {
-    const recipe = await Recipe.delete(req.params.id);
+    const recipe = await Recipe.delete(req.params.id)
     if (!recipe) {
-      return res.status(404).json({ error: "Recipe not found" });
+      return res.status(404).json({ error: 'Recipe not found' })
     }
-    res.status(200).json(recipe);
+    res.status(200).json(recipe)
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error })
   }
-});
+})
 
-module.exports = router;
+module.exports = router

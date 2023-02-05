@@ -1,4 +1,4 @@
-const dynamoose = require("dynamoose");
+const dynamoose = require('dynamoose')
 
 const recipeSchema = new dynamoose.Schema(
   {
@@ -11,18 +11,18 @@ const recipeSchema = new dynamoose.Schema(
           type: Object,
           schema: {
             name: { type: String, required: true },
-            quantity: { type: String, required: true },
-            measurementType: { type: String, required: true },
-          },
-        },
-      ],
+            quantity: { type: Number, required: true },
+            measurementType: { type: String, required: true }
+          }
+        }
+      ]
     },
-    servingSize: { type: Number, required: true },
+    servingSize: { type: Number, required: true }
   },
   {
     saveUnknown: false,
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = dynamoose.model("Recipe", recipeSchema);
+module.exports = dynamoose.model('Recipe', recipeSchema)
