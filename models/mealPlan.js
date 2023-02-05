@@ -1,7 +1,7 @@
 const dynamoose = require("dynamoose");
 const mealPlanSchema = new dynamoose.Schema(
     {
-        id: { type: Number, required: true },
+        id: { type: String, required: true },
         month: { type: Number, required: true },
         weekInfo: {
             type: Array,
