@@ -2,7 +2,7 @@ const dynamoose = require("dynamoose");
 
 const recipeSchema = new dynamoose.Schema(
   {
-    id: { type: String, required: true },
+    id: { type: Number, required: true },
     dishName: { type: String, required: true },
     ingredients: {
       type: Array,
