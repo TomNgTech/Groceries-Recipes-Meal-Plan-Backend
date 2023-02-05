@@ -30,3 +30,4 @@ jobs:
           git pull origin main
           npm install 
           sudo pm2 restart www
+          sudo service nginx restart
