@@ -3,9 +3,8 @@ const dynamoose = require("dynamoose");
 const ingredientSchema = new dynamoose.Schema(
   {
     id: {
-      type: String,
+      type: Number,
       required: true,
-      hashKey: true,
     },
     name: {
       type: String,
