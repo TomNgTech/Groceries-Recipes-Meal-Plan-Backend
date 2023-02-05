@@ -1,55 +1,67 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const Ingredient = require("../models/recipe");
+const router = express.Router();
 
-const mockData = [  
-    { 
-        id: '1', 
-        dishName: 'Grilled Chicken Caesar Salad',
-        ingredients: [
-            { name: 'chicken breast', quantity: '2', measurementType: 'unit'},
-            { name: 'lettuce', quantity: '1', measurementType: 'unit'},
-            { name: 'caesar dressing', quantity: '100', measurementType: 'ml'}
-        ],
-        servingSize: 2
-    },
-    { 
-        id: '2', 
-        dishName: 'Steak and Potatoes',
-        ingredients: [
-            { name: 'ribeye steak', quantity: '1', measurementType: 'unit'},
-            { name: 'potatoes', quantity: '4', measurementType: 'unit'},
-            { name: 'butter', quantity: '50', measurementType: 'gram'}
-        ],
-        servingSize: 2
-    },
-    {
-        id: '3', 
-        dishName: 'Chicken and Potatoes',
-        ingredients: [
-            { name: 'chicken tighs', quantity: '4', measurementType: 'unit'},
-            { name: 'potatoes', quantity: '5', measurementType: 'unit'},
-            { name: 'butter', quantity: '70', measurementType: 'gram'}
-        ],
-        servingSize: 4
+//GET all recipes
+router.get("/", async (req, res) => {
+  try {
+    const recipes = await Recipe.scan().exec();
+    if (!recipes) {
+      return res.status(404).json({ error: "Recipes not found" });
     }
-];
-
-
-router.get('/', (req, res) => {
-    const recipesData = mockData.filter((recipe) => {
-        if (recipe.id && recipe.dishName && recipe.ingredients && recipe.servingSize) {
-            return recipe;
-        }
-    });
-
-    if (recipesData.length === 0) {
-        return res.status(404).json({
-            message: 'No recipes found'
-        });
-    }
-
-    return res.status(200).json(recipesData);
+    res.status(200).json(recipes);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
+//GET a specific recipe by id
+router.get("/:id", async (req, res) => {
+  try {
+    const recipe = await Recipe.get(req.params.id);
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+//POST a new recipe
+router.post("/", async (req, res) => {
+  try {
+    const recipe = await Recipe.create(req.body);
+    res.status(200).json(recipe);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+//PUT an existing recipe
+router.put("/recipes/:id", async (req, res) => {
+  try {
+    const recipe = await Recipe.update(req.params.id, req.body);
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+//DELETE a recipe
+router.delete("/recipes/:id", async (req, res) => {
+  try {
+    const recipe = await Recipe.delete(req.params.id);
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 
 module.exports = router;
