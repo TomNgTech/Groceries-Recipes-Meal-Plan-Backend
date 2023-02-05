@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 //GET a specific recipe by id
 router.get("/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.get(parseInt(req.params.id));
+    const recipe = await Recipe.get(req.params.id);
     if (!recipe) {
       return res.status(404).json({ error: "Recipe not found" });
     }
@@ -39,9 +39,9 @@ router.post("/", async (req, res) => {
 });
 
 //PUT an existing recipe
-router.put("/:id", async (req, res) => {
+router.put("/recipes/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.update(parseInt(req.params.id), req.body);
+    const recipe = await Recipe.update(req.params.id, req.body);
     if (!recipe) {
       return res.status(404).json({ error: "Recipe not found" });
     }
@@ -52,9 +52,9 @@ router.put("/:id", async (req, res) => {
 });
 
 //DELETE a recipe
-router.delete("/:id", async (req, res) => {
+router.delete("/recipes/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.delete(parseInt(req.params.id));
+    const recipe = await Recipe.delete(req.params.id);
     if (!recipe) {
       return res.status(404).json({ error: "Recipe not found" });
     }
