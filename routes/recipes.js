@@ -32,7 +32,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const recipe = await Recipe.create(req.body)
-    console.log(recipe)
     res.status(200).json(recipe)
   } catch (error) {
     res.status(500).json({ error })
