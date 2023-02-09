@@ -14,22 +14,22 @@ describe('Recipes test suite', () => {
           dishName: 'dish 2',
           id: '2',
           ingredients: [
-            { measurementType: 'bottle', name: 'ingredient 2', quantity: 1 },
+            { measurementType: 'bottle', name: 'ingredient 2', quantity: 1 }
           ],
           servingSize: 1,
-          updatedAt: '2023-02-08T00:17:49.246Z',
+          updatedAt: '2023-02-08T00:17:49.246Z'
         },
         {
           createdAt: '2023-02-07T23:11:51.541Z',
           dishName: 'dish 1',
           id: '1',
           ingredients: [
-            { measurementType: 'bottle', name: 'ingredient 1', quantity: 1 },
+            { measurementType: 'bottle', name: 'ingredient 1', quantity: 1 }
           ],
           servingSize: 1,
-          updatedAt: '2023-02-07T23:11:51.541Z',
-        },
-      ]),
+          updatedAt: '2023-02-07T23:11:51.541Z'
+        }
+      ])
     )
   })
 
@@ -55,12 +55,12 @@ describe('POST /todo', () => {
       {
         name: 'ingredient 2',
         quantity: 1,
-        measurementType: 'bottle',
-      },
+        measurementType: 'bottle'
+      }
     ],
     servingSize: 1,
     createdAt: 123412341234,
-    updatedAt: 123412341234,
+    updatedAt: 123412341234
   }
   afterAll(async () => {
     await request(app).delete(`/recipes/${NewRecipe.id}`)
@@ -77,7 +77,7 @@ describe('POST /todo', () => {
   })
 
   it('Tests if createdAt and updatedAt are not what is entered', async () => {
-    const response = await request(app).post('/recipes/').send(NewRecipe)
+    await request(app).post('/recipes/').send(NewRecipe)
     const recipes = await request(app).get(/recipes/)
     expect(recipes.body[2].createdAt).not.toBe(123412341234)
     expect(recipes.body[2].createdAt).not.toBe(123412341234)
@@ -92,12 +92,12 @@ describe('Delete one todo', () => {
       {
         name: 'ingredient 2',
         quantity: 1,
-        measurementType: 'bottle',
-      },
+        measurementType: 'bottle'
+      }
     ],
     servingSize: 1,
     createdAt: 123412341234,
-    updatedAt: 123412341234,
+    updatedAt: 123412341234
   }
   beforeAll(async () => {
     await request(app).post('/recipes').send(NewRecipe)
