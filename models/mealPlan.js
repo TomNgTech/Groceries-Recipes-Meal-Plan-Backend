@@ -23,4 +23,4 @@ const mealPlanSchema = new dynamoose.Schema(
   }
 )
 
-module.exports = dynamoose.model('Meal Plan', mealPlanSchema)
+module.exports = dynamoose.model('MealPlan', mealPlanSchema)
