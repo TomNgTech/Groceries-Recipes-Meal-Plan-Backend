@@ -24,7 +24,7 @@ router.get('/month/:num', async function (req, res) {
         if (plan != null) {
             plan.forEach(element => {
                 console.log(element);
-                if (element.month === req.params.num) {
+                if (element.month === parseInt(req.params.num)) {
                     monthly.push(element);
                 }
                 if (monthly.length === 0) {
