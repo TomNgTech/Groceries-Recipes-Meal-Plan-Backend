@@ -24,10 +24,10 @@ router.get('/month/:num', async function (req, res) {
         if (plan != null) {
             plan.forEach(element => {
                 console.log(element);
-                if (element.month == req.params.num) {
+                if (element.month === req.params.num) {
                     monthly.push(element);
                 }
-                if (monthly.length == 0) {
+                if (monthly.length === 0) {
                     return res.status(404).json({ error: "No Meal plans where created for month: " + req.params.num });
                 }
             });
