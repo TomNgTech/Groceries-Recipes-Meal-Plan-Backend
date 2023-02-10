@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/recipes', recipesRouter)
-app.use('/mealPlan', mealPlanRouter)
+app.use('/mealPlans', mealPlanRouter)
 app.use('/ingredients', ingredientsRouter)
 
 module.exports = app
