@@ -18,7 +18,7 @@ dynamoose.aws.ddb.set(ddb)
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const recipesRouter = require('./routes/recipes')
-const mealPlanRouter = require('./routes/mealPlan')
+const mealPlanRouter = require('./routes/mealPlans')
 const ingredientsRouter = require('./routes/ingredients')
 
 const app = express()
