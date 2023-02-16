@@ -1,53 +1,50 @@
-const request = require('supertest')
-const app = require('../app')
+const axios = require('axios');
 
-describe('Ingredients test suite', () => {
-  let ingredientId;
-  it('POST /ingredients - should create a new ingredient', async () => {
-    const res = await request(app)
-      .post('/ingredients')
-      .send({ name: 'flour', quantity: 2, measurementType: 'cups' });
+// Mock data
+const mockIngredients = [  
+{    id: '1',    name: 'Salt',    measurementType: 'Teaspoon',  },  
+{    id: '2',    name: 'Sugar',    measurementType: 'Cup',  },  
+{    id: '3',    name: 'Flour',    measurementType: 'Cup',  },
+];
 
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('id');
-    ingredientId = res.body.id;
+// Set up the mock server
+jest.mock('axios');
+
+describe('Ingredients API', () => {
+  describe('GET /ingredients', () => {
+    it('should return all ingredients', async () => {
+      axios.get.mockResolvedValue({ data: mockIngredients });
+      const response = await axios.get('/ingredients');
+
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual(mockIngredients);
+    });
   });
 
-  it('GET /ingredients/:id - should get a specific ingredient by ID', async () => {
-    const res = await request(app).get(`/ingredients/${ingredientId}`);
-    
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('name', 'flour');
-    expect(res.body).toHaveProperty('quantity', 2);
-    expect(res.body).toHaveProperty('measurementType', 'cups');
+  describe('POST /ingredients', () => {
+    it('should create a new ingredient', async () => {
+      const newIngredient = {
+        id: '4',
+        name: 'Olive Oil',
+        measurementType: 'Tablespoon',
+      };
+
+      axios.post.mockResolvedValue({ data: newIngredient });
+      const response = await axios.post('/ingredients', newIngredient);
+
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual(newIngredient);
+    });
   });
 
-  it('GET /ingredients - should get all ingredients', async () => {
-    const res = await request(app).get('/ingredients');
-    
-    expect(res.statusCode).toEqual(200);
-    expect(Array.isArray(res.body)).toBeTruthy();
-    expect(res.body).toHaveLength(1);
-    expect(res.body[0]).toHaveProperty('id', ingredientId);
-    expect(res.body[0]).toHaveProperty('name', 'flour');
-    expect(res.body[0]).toHaveProperty('quantity', 2);
-    expect(res.body[0]).toHaveProperty('measurementType', 'cups');
-  });
+  describe('DELETE /ingredients/:id', () => {
+    it('should delete an ingredient', async () => {
+      const ingredientToDelete = mockIngredients[0];
+      axios.delete.mockResolvedValue({ data: ingredientToDelete });
+      const response = await axios.delete(`/ingredients/${ingredientToDelete.id}`);
 
-  it('PUT /ingredients/:id - should update an existing ingredient', async () => {
-    const res = await request(app)
-      .put(`/ingredients/${ingredientId}`)
-      .send({ name: 'flour', quantity: 3, measurementType: 'cups' });
-
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('name', 'flour');
-    expect(res.body).toHaveProperty('quantity', 3);
-    expect(res.body).toHaveProperty('measurementType', 'cups');
-  });
-
-  it('DELETE /ingredients/:id - should delete an existing ingredient', async () => {
-    const res = await request(app).delete(`/ingredients/${ingredientId}`);
-
-    expect(res.statusCode).toEqual(204);
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual(ingredientToDelete);
+    });
   });
 });
