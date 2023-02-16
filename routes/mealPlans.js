@@ -1,6 +1,7 @@
 const express = require('express')
 const MealPlan = require('../models/mealPlan')
 const router = express.Router()
+const crypto = require('crypto')
 
 // ---------------- GET ALL MEAL PLANS -------------------
 router.get('/', async function (req, res) {
@@ -22,13 +23,17 @@ router.get('/month/:num', async function (req, res) {
     const plan = await MealPlan.scan().exec()
     console.log(plan)
     if (plan != null) {
-      plan.forEach(element => {
+      plan.forEach((element) => {
         console.log(element)
         if (element.month === parseInt(req.params.num)) {
           monthly.push(element)
         }
         if (monthly.length === 0) {
-          return res.status(404).json({ error: 'No Meal plans where created for month: ' + req.params.num })
+          return res
+            .status(404)
+            .json({
+              error: 'No Meal plans where created for month: ' + req.params.num
+            })
         }
       })
       res.json(monthly)
@@ -58,6 +63,14 @@ router.get('/:id', async function (req, res) {
 // ---------------- ADD MEAL PLANS -------------------
 router.post('/', async (req, res) => {
   try {
+    let randomID = crypto.randomUUID()
+    let existsInDB = await MealPlan.get(randomID)
+
+    while (existsInDB) {
+      randomID = crypto.randomUUID()
+      existsInDB = await MealPlan.get(randomID)
+    }
+    req.body.id = randomID
     const plan = await MealPlan.create(req.body)
     res.status(200).json(plan)
   } catch (error) {
