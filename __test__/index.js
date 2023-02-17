@@ -9,12 +9,5 @@ const getRecipes = async (id) => {
   return data
 }
 
-const postRecipes = async (recipe) => {
-  const result = await axios.request({
-    method: 'post',
-    url: `/recipes/`,
-  })
-  const { data } = result
-  return data
-}
+
 module.exports = getRecipes
