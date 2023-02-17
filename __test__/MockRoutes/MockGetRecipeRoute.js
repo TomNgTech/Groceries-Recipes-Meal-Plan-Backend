@@ -1,4 +1,4 @@
-const axios = require('../axiosConfig')
+const axios = require('../../axiosConfig')
 
 const getRecipes = async (id) => {
   const result = await axios.request({
