@@ -5,7 +5,7 @@ const app = require('../app')
 
 jest.mock('../axiosConfig', () => {
   return {
-    baseURL: 'https://jsonplaceholder.typicode.com/albums',
+    baseURL: 'https://testurl.com/recipes',
     request: jest.fn().mockResolvedValue({
       data: [
         {
@@ -27,10 +27,10 @@ jest.mock('../axiosConfig', () => {
   }
 })
 
-describe('test getPhotosByAlbumId', () => {
+describe('test getRecipesById', () => {
   afterEach(() => jest.resetAllMocks())
 
-  it('fetches photos by album id', async () => {
+  it('fetches Recipe by id', async () => {
     const recipe = await getRecipes(1)
     expect(axios.request).toHaveBeenCalled()
     expect(axios.request).toHaveBeenCalledWith({

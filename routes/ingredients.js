@@ -1,7 +1,7 @@
 const express = require('express')
 const Ingredient = require('../models/ingredient')
 const router = express.Router()
-
+const crypto = require('crypto')
 // GET all ingredients
 router.get('/', async (req, res) => {
   try {
@@ -31,6 +31,13 @@ router.get('/:id', async (req, res) => {
 // POST a new ingredient
 router.post('/', async (req, res) => {
   try {
+    let randomID = crypto.randomUUID()
+    let existsInDB = await Ingredient.get(randomID)
+    while (existsInDB) {
+      randomID = crypto.randomUUID()
+      existsInDB = await Ingredient.get(randomID)
+    }
+    req.body.id = randomID
     const ingredient = await Ingredient.create(req.body)
     res.status(200).json(ingredient)
   } catch (error) {
@@ -54,11 +61,13 @@ router.put('/:id', async (req, res) => {
 // DELETE an ingredient
 router.delete('/:id', async (req, res) => {
   try {
-    const ingredient = await Ingredient.delete(req.params.id)
-    if (!ingredient) {
-      return res.status(404).json({ error: 'Ingredient not found' })
+    const IngredientToDelete = await Ingredient.get(req.body.id)
+    if (IngredientToDelete == null) {
+      return res.status(404).json({ error: 'Does not exists' })
+    } else {
+      const ingredient = await Ingredient.delete(req.params.id)
+      res.status(200).json(ingredient)
     }
-    res.status(200).json(ingredient)
   } catch (error) {
     res.status(500).json({ error })
   }
