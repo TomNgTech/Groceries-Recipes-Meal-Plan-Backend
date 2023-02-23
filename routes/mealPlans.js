@@ -1,5 +1,6 @@
 const express = require('express')
 const MealPlan = require('../models/mealPlan')
+const Recipe = require("../models/recipes")
 const router = express.Router()
 const crypto = require('crypto')
 
