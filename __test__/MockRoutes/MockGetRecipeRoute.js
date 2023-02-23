@@ -1,13 +1,23 @@
-const axios = require('../../axiosConfig')
+const axios = require('axios')
+const url = require('../../axiosConfig') 
+module.exports = {
+ 
+  async getRecipes() {
+    try {
+       
+      const response = await axios.get(url)
+      return response
+    } catch (err) {
+      return err
+    }
+  },
 
-const getRecipes = async (id) => {
-  const result = await axios.request({
-    method: 'get',
-    url: `/${id}`,
-  })
-  const { data } = result
-  return data
+  async getRecipesById(recipeId) {
+    try {
+      const response = await axios.get(url + `/${recipeId}`)
+      return response[0]
+    } catch (err) {
+      return err
+    }
+  },
 }
-
-
-module.exports = getRecipes
