@@ -61,6 +61,7 @@ router.get('/:id', async function (req, res) {
 })
 
 // ---------------- ADD MEAL PLANS -------------------
+router.post("/:dishId", async (req, res) => {
   try {
     let randomID = crypto.randomUUID()
     let existsInDB = await MealPlan.get(randomID)
@@ -78,14 +79,9 @@ router.get('/:id', async function (req, res) {
         dishName: req.body.weekInfo[0].dishName
       }]
     }
-    try {
-
-      const plan = await MealPlan.create(body)
-      console.log(plan)
-      res.status(200).json(plan);
-    } catch (error) {
-      res.status(500).json({ error })
-    }
+    const plan = await MealPlan.create(body)
+    console.log(plan)
+    res.status(200).json(plan);
   } catch (error) {
     res.status(500).json({ error })
   }
