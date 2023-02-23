@@ -1,54 +1,69 @@
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
-const mockData = require('./mockData');
-const app = require('../app');
+const axios = require('../axiosConfig')
+const getIngredients = require('./MockIngredientGetRoute')
+const request = require('supertest')
+const app = require('../app')
 
-const mock = new MockAdapter(axios);
+jest.mock('../axiosConfig', () => {
+  return {
+    baseURL: 'https://testurl.com/ingredients',
+    request: jest.fn().mockResolvedValue({
+      data: [
+        {
+          id: '1',
+          name: 'Ingredient 1',
+          quantity: 10,
+          measurementType: 'grams'
+        }
+      ]
+    })
+  }
+})
 
-describe('Ingredients API', () => {
-  it('should fetch all ingredients', async () => {
-    mock.onGet('/ingredients').reply(200, mockData.ingredients);
+describe('test getIngredientsById', () => {
+  afterEach(() => jest.resetAllMocks())
 
-    const response = await axios.get('/ingredients');
+  it('fetches Ingredient by id', async () => {
+    const ingredient = await getIngredients(1)
+    expect(axios.request).toHaveBeenCalled()
+    expect(axios.request).toHaveBeenCalledWith({
+      method: 'get',
+      url: '/1'
+    })
+    expect(ingredient.length).toEqual(1)
+    expect(ingredient[0].id).toEqual('1')
+  })
+})
 
-    expect(response.status).toBe(200);
-    expect(response.data).toEqual(mockData.ingredients);
-  });
+describe('Delete one ingredient', () => {
+  const NewIngredient = {
+    id: '3',
+    name: 'Ingredient 3',
+    quantity: 10,
+    measurementType: 'grams'
+  }
+  beforeAll(async () => {
+    await request(app).post('/ingredients').send(NewIngredient)
+  })
 
-  it('should fetch a specific ingredient by id', async () => {
-    const ingredientId = '123';
+  it('should delete one item', async () => {
+    const response = await request(app).delete(`/ingredients/${NewIngredient.id}`)
+    const ingredient = response.body.data
+    expect(ingredient).toBe(undefined)
+  })
+})
 
-    mock.onGet(`/ingredients/${ingredientId}`).reply(200, mockData.ingredients.find(ingredient => ingredient.id === ingredientId));
+describe('Create a new ingredient', () => {
+  const NewIngredient = {
+    name: 'New Ingredient',
+    quantity: 5,
+    measurementType: 'ounces'
+  }
 
-    const response = await axios.get(`/ingredients/${ingredientId}`);
-
-    expect(response.status).toBe(200);
-    expect(response.data).toEqual(mockData.ingredients.find(ingredient => ingredient.id === ingredientId));
-  });
-
-  it('should add a new ingredient', async () => {
-    const newIngredient = {
-      id: '456',
-      name: 'New Ingredient',
-      measurementType: 'Cup'
-    };
-
-    mock.onPost('/ingredients', newIngredient).reply(200, newIngredient);
-
-    const response = await axios.post('/ingredients', newIngredient);
-
-    expect(response.status).toBe(200);
-    expect(response.data).toEqual(newIngredient);
-  });
-
-  it('should delete an ingredient by id', async () => {
-    const ingredientId = '789';
-
-    mock.onDelete(`/ingredients/${ingredientId}`).reply(200, mockData.ingredients.filter(ingredient => ingredient.id !== ingredientId));
-
-    const response = await axios.delete(`/ingredients/${ingredientId}`);
-
-    expect(response.status).toBe(200);
-    expect(response.data).toEqual(mockData.ingredients.filter(ingredient => ingredient.id !== ingredientId));
-  });
-});
+  it('should create a new ingredient', async () => {
+    const response = await request(app).post('/ingredients').send(NewIngredient)
+    const ingredient = response.body.data
+    expect(ingredient.name).toBe('New Ingredient')
+    expect(ingredient.quantity).toBe(5)
+    expect(ingredient.measurementType).toBe('ounces')
+  })
+})
