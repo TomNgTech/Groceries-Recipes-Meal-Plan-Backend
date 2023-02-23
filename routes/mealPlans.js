@@ -216,7 +216,7 @@ router.get('/export/:monthNum', async function (req, res) {
               headers = ['Ingrediants', ' Measurment Type', ' Quantity']
               csvFormat.push(headers);
               elementRecipe.ingredients.forEach(ingrediant => {
-                let record = [ingrediant.name, ingrediant.measurementType, ingrediant.quantity];
+                const record = [ingrediant.name, ingrediant.measurementType, ingrediant.quantity];
                 csvFormat.push(record);
               })
               record = ['\n']
