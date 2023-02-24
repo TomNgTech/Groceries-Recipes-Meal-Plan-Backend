@@ -73,4 +73,29 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+//------------------ CSV EXPORT SUMMARY  ---------------------
+router.get('/export/ingr', async function (req, res) {
+
+
+  const csvFormat = [['Id', 'Name', 'Measurement Type']]
+  try {
+    const list = await Ingredient.scan().exec()
+    if (list != null) {
+      list.forEach(element => {
+        const record = [element.id, element.name, element.measurementType];
+        csvFormat.push(record);
+      })
+      let csvContent = ''
+      csvFormat.forEach(row => {
+        csvContent += row.join(',') + '\n'
+      })
+      res.status(200)
+      res.attachment('Ingrediants Summary.csv').send(csvContent)
+    } else {
+      return res.status(404).json({ error: "No Ingrediants Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 module.exports = router
