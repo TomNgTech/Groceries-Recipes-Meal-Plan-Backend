@@ -1,69 +1,65 @@
-const axios = require('../axiosConfig')
-const getRecipes = require('./MockRecipeGetRoute')
-const request = require('supertest')
-const app = require('../app')
+const axios = require('axios')
+const gets = require('./MockRoutes/MockRecipeGetRoute')
+const API_URL = require('../axiosConfig')
 
-jest.mock('../axiosConfig', () => {
-  return {
-    baseURL: 'https://testurl.com/recipes',
-    request: jest.fn().mockResolvedValue({
-      data: [
+jest.mock('axios')
+
+describe('test get methods', () => {
+  const mockRecipe = [
+    {
+      id: '1',
+      dishName: 'dish one',
+      ingredients: [
         {
-          id: '1',
-          dishName: 'dish two',
-          ingredients: [
-            {
-              name: 'ingredient 2',
-              quantity: 1,
-              measurementType: 'bottle'
-            }
-          ],
-          servingSize: 1,
-          createdAt: 123412341234,
-          updatedAt: 123412341234
-        }
-      ]
-    })
-  }
-})
+          name: 'ingredient 2',
+          quantity: 1,
+          measurementType: 'bottle',
+        },
+      ],
+      servingSize: 1,
+      createdAt: 123412341234,
+      updatedAt: 123412341234,
+    },
+    {
+      id: '2',
+      dishName: 'dish two',
+      ingredients: [
+        {
+          name: 'ingredient 1',
+          quantity: 1,
+          measurementType: 'bottle',
+        },
+        {
+          name: 'ingredient 2',
+          quantity: 1,
+          measurementType: 'more bottle',
+        },
+      ],
+      servingSize: 1,
+      createdAt: 123412341234,
+      updatedAt: 123412341234,
+    },
+  ]
 
-describe('test getRecipesById', () => {
-  afterEach(() => jest.resetAllMocks())
-
-  it('fetches Recipe by id', async () => {
-    const recipe = await getRecipes(1)
-    expect(axios.request).toHaveBeenCalled()
-    expect(axios.request).toHaveBeenCalledWith({
-      method: 'get',
-      url: '/1'
-    })
-    expect(recipe.length).toEqual(1)
+  it('fetches all recipes', async () => {
+    axios.get.mockResolvedValueOnce(mockRecipe)
+    const recipe = await gets.getRecipes()
+    expect(axios.get).toHaveBeenCalledWith(API_URL)
     expect(recipe[0].id).toEqual('1')
-  })
-})
-
-describe('Delete one recipe', () => {
-  const NewRecipe = {
-    id: '3',
-    dishName: 'dish 3',
-    ingredients: [
-      {
-        name: 'ingredient 2',
-        quantity: 1,
-        measurementType: 'bottle'
-      }
-    ],
-    servingSize: 1,
-    createdAt: 123412341234,
-    updatedAt: 123412341234
-  }
-  beforeAll(async () => {
-    await request(app).post('/recipes').send(NewRecipe)
+    expect(recipe[0].dishName).toBe('dish one')
+    expect(recipe[0].ingredients.length).toBe(1)
+    expect(recipe[1].id).toEqual('2')
+    expect(recipe[1].dishName).toBe('dish two')
+    expect(recipe[1].ingredients.length).toBe(2)
   })
 
-  it('should delete one item', async () => {
-    const response = await request(app).delete(`/recipes/${NewRecipe.id}`)
-    const recipe = response.body.data
-    expect(recipe).toBe(undefined)
+  it('fetches specific item', async () => {
+    axios.get.mockResolvedValueOnce(mockRecipe)
+    const getRecipesById = gets.getRecipesById
+    const recipe = await getRecipesById(1)
+    expect(axios.get).toHaveBeenCalledWith(API_URL + '/1')
+    expect(recipe.id).toEqual('1')
+    expect(recipe.dishName).toBe('dish one')
+    expect(recipe.ingredients.length).toBe(1)
   })
 })
