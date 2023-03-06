@@ -49,14 +49,12 @@ _*the timestamp is represented as a string in ISO 8601 format, which includes th
 The response for a successful request to create a new recipe will include the newly created recipe with its corresponding id.
 
 The following response codes may be returned by the Recipe/Recipes API:
-
 **200 OK:** The request was successful.\
 **201 Created:** The resource was created successfully.\
 **204 No Content:** The resource was deleted successfully.
 
 ## Error
-error: A string that describes the error that occurred.
-
+error: A string that describes the error that occurred:
 **400 Bad Request:** The request was malformed or invalid.\
 **404 Not Found:** The requested resource was not found.\
 **500 Internal Server Error:** An unexpected error occurred on the server.
