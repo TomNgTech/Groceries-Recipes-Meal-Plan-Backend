@@ -1,4 +1,5 @@
 # Backend APIs
+**The Backend APIs offer a comprehensive RESTful web service that enables users to effortlessly create, retrieve, modify, and delete their ingredients, recipes, and meal plans. These APIs enable users to efficiently maintain a personal recipe book, providing an organized and convenient way to keep track of their favorite dishes. With this feature, users can streamline the recipe creation process, making it easier than ever before to prepare meals at home. Additionally, these APIs simplify grocery shopping by providing a quick and efficient way to manage the ingredients needed for each recipe.**
 
 # Base URL
 ## http://localhost:3000/
