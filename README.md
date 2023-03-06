@@ -54,7 +54,7 @@ The following response codes may be returned by the Recipe/Recipes API:\
 **204 No Content:** The resource was deleted successfully.
 
 ## Error
-error: A string that describes the error that occurred:
+error: A string that describes the error that occurred:\
 **400 Bad Request:** The request was malformed or invalid.\
 **404 Not Found:** The requested resource was not found.\
 **500 Internal Server Error:** An unexpected error occurred on the server.
