@@ -54,7 +54,7 @@ The following response codes may be returned by the Recipe/Recipes API:
 **201 Created:** The resource was created successfully.\
 **204 No Content:** The resource was deleted successfully.
 
-## Error
+# Error
 error: A string that describes the error that occurred.
 
 **400 Bad Request:** The request was malformed or invalid.\
