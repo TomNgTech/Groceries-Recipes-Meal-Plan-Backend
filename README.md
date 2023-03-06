@@ -3,6 +3,10 @@
 The Recipes API is a RESTful web service that allows users to manage recipes. The API provides endpoints for retrieving, creating, updating and deleting recipes.
 
 
+#Base URL
+http://localhost:3000/
+
+
 # Authentication
 The Recipe/Recipes API is open and does not require any authentication. Any client can access the API and retrieve recipe data.
 
