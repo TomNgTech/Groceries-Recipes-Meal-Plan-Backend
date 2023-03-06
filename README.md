@@ -23,7 +23,7 @@ Creates a new recipe with the provided data.
 Updates an existing recipe with the specified id.
 
 | Parameter	| Type | Description |
-| --- | --- |
+| --- | --- | --- |
 | id	| string	| The id of recipe. |
 
 **DELETE /recipes/:id**
