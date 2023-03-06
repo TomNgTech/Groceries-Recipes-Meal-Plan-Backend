@@ -3,11 +3,11 @@
 The Recipes API is a RESTful web service that allows users to manage recipes. The API provides endpoints for retrieving, creating, updating and deleting recipes.
 
 
-## Authentication
+# Authentication
 The Recipe/Recipes API is open and does not require any authentication. Any client can access the API and retrieve recipe data.
 
 
-## Endpoints
+# Endpoints
 The following endpoints are available in the Recipe/Recipes API:
 
 **GET /recipes**
@@ -26,7 +26,7 @@ Updates an existing recipe with the specified id.
 Deletes a recipe with the specified id.
 
 
-## Data Structures
+# Data Structures
 **Recipe**
 
 A recipe has the following properties:
@@ -45,7 +45,7 @@ A recipe has the following properties:
 
 _*the timestamp is represented as a string in ISO 8601 format, which includes the date and time in UTC timezone. For example, "2023-02-08T00:17:49.246Z" represents February 8th, 2023 at 12:17:49.246 AM UTC._
 
-## Response Codes
+# Response Codes
 The response for a successful request to create a new recipe will include the newly created recipe with its corresponding id.
 
 The following response codes may be returned by the Recipe/Recipes API:
@@ -54,7 +54,7 @@ The following response codes may be returned by the Recipe/Recipes API:
 **201 Created:** The resource was created successfully.\
 **204 No Content:** The resource was deleted successfully.
 
-# Error
+## Error
 error: A string that describes the error that occurred.
 
 **400 Bad Request:** The request was malformed or invalid.\
