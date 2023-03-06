@@ -42,6 +42,7 @@ A recipe has the following properties:
 | servingSize	| integer	| The serving size of the dish associated with the recipe. |
 | createdAt	| string	| The timestamp when the recipe was created. |
 | updatedAt	| string	| The timestamp when the recipe was last updated. |
+
 _*the timestamp is represented as a string in ISO 8601 format, which includes the date and time in UTC timezone. For example, "2023-02-08T00:17:49.246Z" represents February 8th, 2023 at 12:17:49.246 AM UTC._
 
 ## Response Codes
