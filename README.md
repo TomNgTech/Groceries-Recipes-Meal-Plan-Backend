@@ -22,10 +22,6 @@ Creates a new recipe with the provided data.
 **PUT /recipes/:id**
 Updates an existing recipe with the specified id.
 
-| Parameter	| Type | Description |
-| --- | --- | --- |
-| id	| string	| The id of recipe. |
-
 **DELETE /recipes/:id**
 Deletes a recipe with the specified id.
 
@@ -35,16 +31,18 @@ Deletes a recipe with the specified id.
 
 A recipe has the following properties:
 
-_id:_ The unique identifier of the recipe.
-_dishName:_ The name of the dish associated with the recipe.
-_ingredients:_ An array of objects representing the ingredients required for the recipe. 
-Each object has the following properties:
-_name:_ The name of the ingredient.
-_quantity:_ The quantity of the ingredient required for the recipe.
-_measurementType:_ The type of measurement used to measure the quantity of the ingredient.
-_servingSize:_ The serving size of the dish associated with the recipe.
-_createdAt:_ The timestamp when the recipe was created.
-_updatedAt:_ The timestamp when the recipe was last updated.
+| Parameter	| Type | Description |
+| --- | --- | --- |
+| id	| string	| The unique identifier of the recipe. |
+| dishName	| string	| The name of the dish associated with the recipe. |
+| ingredients	| string	| An array of objects representing the ingredients required for the recipe.  |
+| name	| string	| The name of the ingredient. |
+| quantity	| integer	| The quantity of the ingredient required for the recipe. |
+| measurementType	| string	| The type of measurement used to measure the quantity of the ingredient. |
+| servingSize	| integer	| The serving size of the dish associated with the recipe. |
+| createdAt	| string	| The timestamp when the recipe was created. |
+| updatedAt	| string	| The timestamp when the recipe was last updated. |
+_*the timestamp is represented as a string in ISO 8601 format, which includes the date and time in UTC timezone. For example, "2023-02-08T00:17:49.246Z" represents February 8th, 2023 at 12:17:49.246 AM UTC._
 
 ## Response Codes
 The response for a successful request to create a new recipe will include the newly created recipe with its corresponding id.
