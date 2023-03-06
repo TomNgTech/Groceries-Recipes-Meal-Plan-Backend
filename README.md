@@ -1,53 +1,62 @@
-# Recipes API
+# **Recipes API**
 
 The Recipes API is a RESTful web service that allows users to manage recipes. The API provides endpoints for retrieving, creating, updating and deleting recipes.
+
 
 ## Authentication
 The Recipe/Recipes API is open and does not require any authentication. Any client can access the API and retrieve recipe data.
 
+
 ## Endpoints
 The following endpoints are available in the Recipe/Recipes API:
 
-GET /recipes
+**GET /recipes**
 Retrieves a list of all recipes.
 
-GET /recipes/:id
+**GET /recipes/:id**
 Retrieves a single recipe with the specified id.
 
-POST /recipes
+**POST /recipes**
 Creates a new recipe with the provided data.
 
-PUT /recipes/:id
+**PUT /recipes/:id**
 Updates an existing recipe with the specified id.
 
-DELETE /recipes/:id
+| Parameter	| Type | Description |
+| --- | --- |
+| id	| string	| The id of recipe. |
+
+**DELETE /recipes/:id**
 Deletes a recipe with the specified id.
 
+
 ## Data Structures
-Recipe
+**Recipe**
+
 A recipe has the following properties:
 
-id: The unique identifier of the recipe.
-dishName: The name of the dish associated with the recipe.
-ingredients: An array of objects representing the ingredients required for the recipe. Each object has the following properties:
-name: The name of the ingredient.
-quantity: The quantity of the ingredient required for the recipe.
-measurementType: The type of measurement used to measure the quantity of the ingredient.
-servingSize: The serving size of the dish associated with the recipe.
-createdAt: The timestamp when the recipe was created.
-updatedAt: The timestamp when the recipe was last updated.
-
-## Error
-An error has the following properties:
-
-error: A string that describes the error that occurred.
+_id:_ The unique identifier of the recipe.
+_dishName:_ The name of the dish associated with the recipe.
+_ingredients:_ An array of objects representing the ingredients required for the recipe. 
+Each object has the following properties:
+_name:_ The name of the ingredient.
+_quantity:_ The quantity of the ingredient required for the recipe.
+_measurementType:_ The type of measurement used to measure the quantity of the ingredient.
+_servingSize:_ The serving size of the dish associated with the recipe.
+_createdAt:_ The timestamp when the recipe was created.
+_updatedAt:_ The timestamp when the recipe was last updated.
 
 ## Response Codes
-The following response codes may be returned by the Recipe/Recipes API:
+The response for a successful request to create a new recipe will include the newly created recipe with its corresponding id.
 
-200 OK: The request was successful.
-201 Created: The resource was created successfully.
-204 No Content: The resource was deleted successfully.
-400 Bad Request: The request was malformed or invalid.
-404 Not Found: The requested resource was not found.
-500 Internal Server Error: An unexpected error occurred on the server.
+The following response codes may be returned by the Recipe/Recipes API:
+**200 OK:** The request was successful.
+**201 Created:** The resource was created successfully.
+**204 No Content:** The resource was deleted successfully.
+
+## Error
+error: A string that describes the error that occurred.
+
+**400 Bad Request:** The request was malformed or invalid.
+**404 Not Found:** The requested resource was not found.
+**500 Internal Server Error:** An unexpected error occurred on the server.
