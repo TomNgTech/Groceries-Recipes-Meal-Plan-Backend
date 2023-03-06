@@ -48,7 +48,7 @@ _*the timestamp is represented as a string in ISO 8601 format, which includes th
 # Response Codes
 The response for a successful request to create a new recipe will include the newly created recipe with its corresponding id.
 
-The following response codes may be returned by the Recipe/Recipes API:
+The following response codes may be returned by the Recipe/Recipes API:\
 **200 OK:** The request was successful.\
 **201 Created:** The resource was created successfully.\
 **204 No Content:** The resource was deleted successfully.
