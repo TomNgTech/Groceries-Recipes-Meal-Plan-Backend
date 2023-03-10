@@ -107,7 +107,7 @@ git pull origin main
 npm install
 ```
 - `sudo pm2 restart www`: Restart pm2 task manager for Node/Express.js task
-- `sudo service nginx restart`: Restart nginx server since nginx will be the main web server to serve static, compiled HTML/CSS/Javascript files inside the `build` folder
+- `sudo service nginx restart`: Restart nginx server since nginx will be the main proxy pass for our Express.js endpoints
 
 This workflow use [GitHub Action - Appleboy's ssh-action](https://github.com/appleboy/ssh-action)
 
