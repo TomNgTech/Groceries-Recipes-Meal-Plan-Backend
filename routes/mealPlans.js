@@ -205,8 +205,9 @@ router.get('/export/:monthNum', async function (req, res) {
     if (plan != null) {
       plan.forEach(elementMonth => {
         if (elementMonth.month === parseInt(req.params.monthNum)) {
-          const dishId = elementMonth.weekInfo[0].dishId;
-          const dishName = elementMonth.weekInfo[0].dishName;
+          elementMonth.weekInfo.forEach(dish => {
+          const dishId = dish.dishId;
+          const dishName = dish.dishName;
           recipes.forEach(elementRecipe => {
             if (elementRecipe.id === dishId) {
               let headers = ['Recipe Name: ' + dishName]
@@ -224,8 +225,8 @@ router.get('/export/:monthNum', async function (req, res) {
               csvFormat.push(record);
             }
           })
-        }
-      })
+        });
+      }})
       let csvContent = ''
       csvFormat.forEach(row => {
         csvContent += row.join(',') + '\n'
