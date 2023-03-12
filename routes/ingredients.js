@@ -159,14 +159,14 @@ router.get('/export/:month', async function (req, res) {
             recipes.forEach(elementRecipe => {
               if (elementRecipe.id === dishId) {
                 elementRecipe.ingredients.forEach(ingrediant => {
-                  if (monthIngredients.length == 0) {
+                  if (monthIngredients.length === 0) {
                     monthIngredients.push([[ingrediant.name], [ingrediant.measurementType], [ingrediant.quantity]])
                   } else {
                     for (let j = 0; j < monthIngredients.length; j++) {
                       if (ingrediant.name === monthIngredients[j][0].toString()) {
                         monthIngredients[j][2] = Number(monthIngredients[j][2]) + Number(ingrediant.quantity)
                       }
-                      else if (j == monthIngredients.length - 1) {
+                      else if (j === monthIngredients.length - 1) {
                         monthIngredients.push([[ingrediant.name], [ingrediant.measurementType], [ingrediant.quantity]])
                         j = monthIngredients.length
 
@@ -180,7 +180,7 @@ router.get('/export/:month', async function (req, res) {
         }
       })
       monthIngredients.forEach(dish => {
-        let record
+        const record
         record = [dish[0], dish[1], dish[2]];
         csvFormat.push(record);
       })
