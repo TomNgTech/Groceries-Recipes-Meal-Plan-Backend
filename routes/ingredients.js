@@ -180,7 +180,7 @@ router.get('/export/:month', async function (req, res) {
         }
       })
       monthIngredients.forEach(dish => {
-        const record = []
+        let record = []
         record = [dish[0], dish[1], dish[2]];
         csvFormat.push(record);
       })
