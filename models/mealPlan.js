@@ -11,7 +11,8 @@ const mealPlanSchema = new dynamoose.Schema(
           schema: {
             weekNum: { type: String, require: true },
             dishId: { type: String, required: true },
-            dishName: { type: String, required: true }
+            dishName: { type: String, required: true },
+            servings: {type: Number, required: true}
           }
         }
       ]
