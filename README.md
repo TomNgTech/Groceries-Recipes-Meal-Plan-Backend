@@ -73,6 +73,43 @@ Visit [AWS Official Document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuid
 
 We need to give a set of access key/secret to [Dynamoose (ORM)](https://dynamoosejs.com/getting_started/Introduction) so visit [AWS Official Document](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html) for how to create AWS access key/secret
 
+### Testing with Jest
+
+# What is jest
+Jest is a javascript testing framework focused on simplicity. It ensures that each test has a unique global state allowing for them to run parallel. Jest uses custom resolver for imports into tests, making it simple to mock any object outside of the test's scope. 
+Jest offers a zero config, working out of the box on most projects. It allows for snapshots that keep track of large objects. Tests are isolated running parallel with their own processes to maximize performance. 
+
+# Why it was chosen
+Jest was chosen because it works right out of the box with little to no configuration. Jest ensures that different tests don't influence each other's results by executing parallel tests and acting as an orchestrator to collect the results from all processes. Tests created could be ran with mock data without effecting the database or with real data allowing for actual post/put/delete of the database. 
+
+# What was tested: 
+- Ingredients routes
+- Recipes routes
+
+# What was not tested: 
+- Mealplan routes
+- users
+- index
+
+# Installation: 
+Run the following code to install jests framework: `npm install --save-dev jest`
+ 
+- Configuration file is how jest chooses where to store cache data. This is how we configured out jest tests. 
+
+- Configuration File: `jest.config.js` 
+```
+module.exports = {
+  testMatch: [
+    '<rootDir>/__test__/**/*.test.js',
+    '<rootDir>/__test__/**/*.test.jsx'
+  ],
+  testEnvironment: 'node'
+}
+
+```
+
+
+
 ## Continuous Integration / Continuous Delivery (CI/CD)
 
 The Express.js backend Groceries - Recipes - Meal Plans app uses [GitHub Actions](https://github.com/features/actions) for both CI & CD pipelines. Continuous Integration (CI) pipeline will run checks for new PR requesting to be merged into `main`. Continuous Delivery (CD) pipeline will deploy code changes to production server once the PR has been merged.
