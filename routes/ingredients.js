@@ -161,6 +161,7 @@ router.get('/export/:month', async function (req, res) {
                 elementRecipe.ingredients.forEach(ingredient => {
                   if (monthIngredients.length == 0) {
                     monthIngredients.push([[ingredient.name], [ingredient.measurementType], [ingredient.quantity]])
+
                   } else {
                     for (let j = 0; j < monthIngredients.length; j++) {
                       if (ingredient.name === monthIngredients[j][0].toString()) {
