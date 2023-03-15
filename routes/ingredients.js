@@ -93,9 +93,9 @@ router.get('/export/ingr', async function (req, res) {
         csvContent += row.join(',') + '\n'
       })
       res.status(200)
-      res.attachment('Ingrediants Summary.csv').send(csvContent)
+      res.attachment('Ingredients Summary.csv').send(csvContent)
     } else {
-      return res.status(404).json({ error: "No Ingrediants Found" });
+      return res.status(404).json({ error: "No Ingredient Found" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -147,8 +147,8 @@ router.get('/export/:month', async function (req, res) {
         break;
 
     }
-    const csvFormat = [[month + '\'s Ingrediants']]
-    let headers = ['Ingrediants', ' Measurment Type', ' Quantity']
+    const csvFormat = [[month + '\'s Ingredients']]
+    let headers = ['Ingredient', ' Measurement  Type', ' Quantity']
     csvFormat.push(headers);
     if (plan != null) {
       plan.forEach(elementMonth => {
@@ -158,16 +158,16 @@ router.get('/export/:month', async function (req, res) {
             const dishId = dish.dishId;
             recipes.forEach(elementRecipe => {
               if (elementRecipe.id === dishId) {
-                elementRecipe.ingredients.forEach(ingrediant => {
+                elementRecipe.ingredients.forEach(ingredient => {
                   if (monthIngredients.length == 0) {
-                    monthIngredients.push([[ingrediant.name], [ingrediant.measurementType], [ingrediant.quantity]])
+                    monthIngredients.push([[ingredient.name], [ingredient.measurementType], [ingredient.quantity]])
                   } else {
                     for (let j = 0; j < monthIngredients.length; j++) {
-                      if (ingrediant.name === monthIngredients[j][0].toString()) {
-                        monthIngredients[j][2] = Number(monthIngredients[j][2]) + Number(ingrediant.quantity)
+                      if (ingredient.name === monthIngredients[j][0].toString()) {
+                        monthIngredients[j][2] = Number(monthIngredients[j][2]) + Number(ingredient.quantity)
                       }
-                      else if (j == monthIngredients.length - 1) {
-                        monthIngredients.push([[ingrediant.name], [ingrediant.measurementType], [ingrediant.quantity]])
+                      else if (j === monthIngredients.length - 1) {
+                        monthIngredients.push([[ingredient.name], [ingredient.measurementType], [ingredient.quantity]])
                         j = monthIngredients.length
 
                       }
@@ -180,7 +180,7 @@ router.get('/export/:month', async function (req, res) {
         }
       })
       monthIngredients.forEach(dish => {
-        let record
+        let record = []
         record = [dish[0], dish[1], dish[2]];
         csvFormat.push(record);
       })
@@ -191,7 +191,7 @@ router.get('/export/:month', async function (req, res) {
       res.status(200)
       res.attachment('Ingredients.csv').send(csvContent)
     } else {
-      return res.status(404).json({ error: "No Ingrediants plans for month of:" + month });
+      return res.status(404).json({ error: "No Ingredients plans for month of:" + month });
     }
   } catch (error) {
     res.status(500).json({ error });
