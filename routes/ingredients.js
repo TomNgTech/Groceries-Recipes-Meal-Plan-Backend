@@ -159,7 +159,7 @@ router.get('/export/:month', async function (req, res) {
             recipes.forEach(elementRecipe => {
               if (elementRecipe.id === dishId) {
                 elementRecipe.ingredients.forEach(ingredient => {
-                  if (monthIngredients.length == 0) {
+                  if (monthIngredients.length === 0) {
                     monthIngredients.push([[ingredient.name], [ingredient.measurementType], [ingredient.quantity]])
 
                   } else {
