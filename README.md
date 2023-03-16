@@ -1,6 +1,30 @@
 # Groceries - Recipes - Meal Plans Express.js App
 
-General info about the app
+Groceries - Recipes - Meal Plans Express.js app is to provide CRUD RESTful API Endpoints for the React.js frontend.
+
+Live Endpoint: http://52.37.204.183/
+
+## Physical View Diagram
+
+![Physical View  Diagram](assets/Physical_View.jpg)
+
+This diagram depicts the basic cloud architecture of the Groceries - Recipes - Meal Plans app.
+
+- We use 2 AWS EC2 instance to host/serve as web servers for the front-end (React.js) and back-end (Express.js)
+- The backend web server will connect to a AWS DynamoDB region to update & retrieve data
+- Both the back-end and the front-end will communicate and interact with users via a client, in example it would be a web browser.
+
+## Development View Diagram
+
+![Development Diagram](assets/Development_View.jpg)
+
+This diagram depicts the data/action flow through different layers of the app.
+
+- User first send requests to the system using RESTful API Endpoints and the front-end React.js app.
+- The requests then got relayed to different controllers/routes in the backend web server depends on the logics.
+- Once the requests got routed to the correct logic implementation in Express.js app, the app will execute CRUD action against the database and return the correct response back.
+- CRUD action executed from Express.js to DynamoDB via Dynamoose.js ORM will query against the data we have in DynamoDB and will either retrieve or update the data from DynamoDB.
+
 
 ## Cloud Architecture
 
